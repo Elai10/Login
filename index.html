@@ -18,8 +18,8 @@
             </div>
             
             <form id="login" class="input-group">
-                <input type="text" class="input-field" placeholder="User Id" required>
-                <input type="password" class="input-field" placeholder="Enter Password" required>
+                <input type="text" id="loginuser" class="input-field" placeholder="User Id" required>
+                <input type="password" id="loginpassword" class="input-field" placeholder="Enter Password" required>
                 <input type="checkbox" class="check-box"><span>Remember Password</span>
                 <button type="button" class="submit-btn" onclick="onLoginClick()">Log in</button>
             </form>
@@ -73,22 +73,23 @@
         }
 
         function onLoginClick(){
-            const username = document.getElementById("userid").value
-            const password = document.getElementById("password").value
-            const json = window.fetch("/users", {
+            const username = document.getElementById("loginuser").value
+            const password = document.getElementById("loginpassword").value
+
+            const json = window.fetch("/users/login", {
                 headers:{
                     "Content-Type": "application/json"
                 },
-                method:"GET",
+                method:"post",
                 body:JSON.stringify({
                     name: username,
                     password
                 })
-            }).then(function z(response){
+            }).then((response) => {
               return response.json()
             })
-            const elai = (json.then((e) => e))
 
+            console.log(json);
         }
 
     </script>
